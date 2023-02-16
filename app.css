@@ -41,7 +41,11 @@ main{
 h4, h3{
     text-align: center;
 }
-
+#booker{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 #booker-grid-holder{
     display: flex;
     justify-content: space-evenly;
@@ -63,13 +67,31 @@ h4, h3{
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: not-allowed;
 }
 .available-seat{
     background-color: green;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
+.selected-seat{
+    border:4px outset rgb(0, 0, 0);
+}
+#book-ticket-btn{
+    margin: 50px;
+}
+
+#customer-detail-form{
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
 
 .d-none{
     display: none;

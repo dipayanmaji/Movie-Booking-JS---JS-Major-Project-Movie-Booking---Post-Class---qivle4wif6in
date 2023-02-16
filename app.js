@@ -2,7 +2,9 @@ import {fetchMovieAvailability,fetchMovieList} from "./api.js"
 
 const main = document.getElementsByTagName("main")[0];
 const seatAvalibilityTitle = document.getElementsByTagName("h3")[0];
+const booker = document.getElementById("booker");
 const bookerHolder = document.getElementById("booker-grid-holder");
+const bookSeatsBtn = document.getElementById("book-ticket-btn");
 
 const moviesHolder = document.createElement("div");
 moviesHolder.classList.add("movie-holder");
@@ -100,7 +102,7 @@ function showSeats(movieName){
             }
             else{
                 div.classList.add("available-seat");
-                div.setAttribute("onclick", "availableSeatClicked()")
+                div.setAttribute("onclick", "availableSeatClicked(event)")
             }
 
             if(i<=12) bookingGridLeft.appendChild(div);
@@ -109,6 +111,82 @@ function showSeats(movieName){
     })
 }
 
-function availableSeatClicked(){
-    console.log("Available Seat Clicked");
+let numOfSelectedSeat = 0;
+let seats = new Set();
+window.availableSeatClicked = function(e){
+    let seatNum = e.target.textContent;
+    if(e.target.classList.contains("selected-seat")){
+        e.target.classList.remove("selected-seat");
+        seats.delete(seatNum);
+        numOfSelectedSeat--;
+        if(numOfSelectedSeat == 0)
+            bookSeatsBtn.classList.add("v-none");
+        return;
+    }
+    e.target.classList.add("selected-seat");
+    seats.add(seatNum);
+    numOfSelectedSeat++;
+    bookSeatsBtn.classList.remove("v-none");
+}
+
+bookSeatsBtn.addEventListener("click", ()=>{
+    booker.innerHTML= "";
+
+    const div = document.createElement("div");
+    div.id = "confirm- purchase";
+    const h3 = document.createElement("h3");
+    h3.textContent = `Confirm your booking for seat numbers: ${Array.from(seats).join(", ")}`;
+
+    const form = document.createElement("form");
+    form.id = "customer-detail-form";
+    form.setAttribute("onSubmit", "formSubmit(event)")
+
+    const emailLable = document.createElement("label");
+    emailLable.textContent = "Email: ";
+    const emailInput = document.createElement("input");
+    emailInput.type = "email";
+    emailInput.name = "email";
+    emailInput.required = true;
+    emailLable.appendChild(emailInput);
+
+    const phoneLable = document.createElement("label");
+    phoneLable.textContent = "Phone Number: "
+    const phoneInput = document.createElement("input");
+    phoneInput.type = "tel";
+    phoneInput.name = "phone";
+    phoneInput.required = true;
+    phoneLable.appendChild(phoneInput);
+    
+    const submitBtn = document.createElement("button");
+    submitBtn.type = "submit";
+    submitBtn.textContent = "Purchase";
+
+    form.append(emailLable, phoneLable, submitBtn);
+
+    div.appendChild(h3);
+    div.appendChild(form);
+    booker.appendChild(div);
+})
+
+window.formSubmit = function(e){
+    e.preventDefault();
+    // console.log("purchase clicked", e.target.phone.value);
+
+    const div = document.createElement("div");
+    div.id = "Success";
+
+    const h3= document.createElement("h3");
+    h3.textContent = "Booking details";
+    
+    const seatsP = document.createElement("p");
+    seatsP.textContent = `Seats: ${Array.from(seats).join(',')}`;
+    const phoneP = document.createElement("p");
+    phoneP.textContent = `Phone number: ${e.target.phone.value}`;
+    const emailP = document.createElement("p");
+    emailP.textContent = `Email: ${e.target.email.value}`;
+
+    div.append(h3, seatsP, phoneP, emailP);
+
+    booker.innerHTML= "";
+    booker.append(div);
 }
