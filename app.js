@@ -142,7 +142,7 @@ bookSeatsBtn.addEventListener("click", ()=>{
     const div = document.createElement("div");
     div.id = "confirm-purchase";
     const h3 = document.createElement("h3");
-    h3.textContent = `Confirm your booking for seat numbers:${Array.from(seats).join(", ")}`;
+    h3.textContent = `Confirm your booking for seat numbers:${Array.from(seats).join(",")}`;
 
     const form = document.createElement("form");
     form.id = "customer-detail-form";
