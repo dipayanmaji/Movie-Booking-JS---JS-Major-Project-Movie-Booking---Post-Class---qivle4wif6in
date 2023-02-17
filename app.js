@@ -22,9 +22,9 @@ function createMovieTemplate(movieDetails){
 
     const a = document.createElement("a");
     a.classList.add("movie-link");
-    a.href = "#";
-    // a.href = `/${movieName}`
-    // a.setAttribute("onclick", "showSeats()");
+    // a.href = "#";
+    a.href = `/${movieName}`
+    a.setAttribute("onclick", "showSeats(event)");
 
     const div = document.createElement("div");
     div.classList.add("moive");
@@ -32,9 +32,11 @@ function createMovieTemplate(movieDetails){
 
     const imageDiv = document.createElement("div");
     imageDiv.classList.add("movie-img-wrapper");
+    imageDiv.textContent = movieName;
     imageDiv.style.backgroundImage = `url(${imageURL})`;
 
     const title = document.createElement("h4");
+    // title.name = "title";
     title.textContent = movieName;
 
     div.append(imageDiv, title);
@@ -50,29 +52,35 @@ fetchMovieList()
     })
     main.innerHTML = "";
     main.appendChild(moviesHolder);
-    movies = document.getElementsByClassName("movie-link");
+    // movies = document.getElementsByClassName("movie-link");
 
-    movies[0].addEventListener("click", ()=>{
-        showSeats("21 Jump Street");
-    });
-    movies[1].addEventListener("click", ()=>{
-        showSeats("22 Jump Street");
-    });
-    movies[2].addEventListener("click", ()=>{
-        showSeats("Cars");
-    });
-    movies[3].addEventListener("click", ()=>{
-        showSeats("Cars 2");
-    });
-    movies[4].addEventListener("click", ()=>{
-        showSeats("Cars 3");
-    });
+    // movies[0].addEventListener("click", ()=>{
+    //     showSeats("21 Jump Street");
+    // });
+    // movies[1].addEventListener("click", ()=>{
+    //     showSeats("22 Jump Street");
+    // });
+    // movies[2].addEventListener("click", ()=>{
+    //     showSeats("Cars");
+    // });
+    // movies[3].addEventListener("click", ()=>{
+    //     showSeats("Cars 2");
+    // });
+    // movies[4].addEventListener("click", ()=>{
+    //     showSeats("Cars 3");
+    // });
 })
 
+let numOfSelectedSeat = 0;
+let seats;
 
-
-function showSeats(movieName){
+window.showSeats = function(e){
+    e.preventDefault();
+    let movieName = e.target.textContent;
     bookerHolder.innerHTML = "";
+    seats = new Set();
+    numOfSelectedSeat = 0;
+    bookSeatsBtn.classList.add("v-none");
 
     seatAvalibilityTitle.classList.remove("v-none");
 
@@ -111,8 +119,7 @@ function showSeats(movieName){
     })
 }
 
-let numOfSelectedSeat = 0;
-let seats = new Set();
+
 window.availableSeatClicked = function(e){
     let seatNum = e.target.textContent;
     if(e.target.classList.contains("selected-seat")){
