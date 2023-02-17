@@ -22,7 +22,6 @@ function createMovieTemplate(movieDetails){
 
     const a = document.createElement("a");
     a.classList.add("movie-link");
-    // a.href = "#";
     a.href = `/${movieName}`
     a.setAttribute("onclick", "showSeats(event)");
 
@@ -36,7 +35,6 @@ function createMovieTemplate(movieDetails){
     imageDiv.style.backgroundImage = `url(${imageURL})`;
 
     const title = document.createElement("h4");
-    // title.name = "title";
     title.textContent = movieName;
 
     div.append(imageDiv, title);
@@ -47,28 +45,10 @@ function createMovieTemplate(movieDetails){
 fetchMovieList()
 .then((allMovies)=>{
     allMovies.forEach((eachMovie)=>{
-        // console.log(eachMovie)
         createMovieTemplate(eachMovie);
     })
     main.innerHTML = "";
     main.appendChild(moviesHolder);
-    // movies = document.getElementsByClassName("movie-link");
-
-    // movies[0].addEventListener("click", ()=>{
-    //     showSeats("21 Jump Street");
-    // });
-    // movies[1].addEventListener("click", ()=>{
-    //     showSeats("22 Jump Street");
-    // });
-    // movies[2].addEventListener("click", ()=>{
-    //     showSeats("Cars");
-    // });
-    // movies[3].addEventListener("click", ()=>{
-    //     showSeats("Cars 2");
-    // });
-    // movies[4].addEventListener("click", ()=>{
-    //     showSeats("Cars 3");
-    // });
 })
 
 let numOfSelectedSeat = 0;
@@ -94,7 +74,6 @@ window.showSeats = function(e){
     bookingGridLeft.classList.add("booking-grid");
     const bookingGridRight = document.createElement("div");
     bookingGridRight.classList.add("booking-grid");
-    // console.log(movieName);
     fetchMovieAvailability(movieName)
     .then((seats)=>{
         loding.remove();
@@ -177,7 +156,6 @@ bookSeatsBtn.addEventListener("click", ()=>{
 
 window.formSubmit = function(e){
     e.preventDefault();
-    // console.log("purchase clicked", e.target.phone.value);
 
     const div = document.createElement("div");
     div.id = "success";
