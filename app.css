@@ -15,8 +15,8 @@ nav{
 ul{
     list-style-type: none;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    /* flex-direction: row; */
+    justify-content: space-evenly;
 }
 li{
     margin-right: 50px;
