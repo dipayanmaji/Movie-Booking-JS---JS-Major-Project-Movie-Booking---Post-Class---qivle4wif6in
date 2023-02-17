@@ -180,7 +180,7 @@ window.formSubmit = function(e){
     // console.log("purchase clicked", e.target.phone.value);
 
     const div = document.createElement("div");
-    div.id = "Success";
+    div.id = "success";
 
     const h3= document.createElement("h3");
     h3.textContent = "Booking details";
